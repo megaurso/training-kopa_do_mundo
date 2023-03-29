@@ -1,4 +1,4 @@
-from exceptions import NegativeTitlesError, InvalidYearCupError, ImpossibleTitlesError
+from teams.exceptions import NegativeTitlesError, InvalidYearCupError, ImpossibleTitlesError
 
 data = {
     "name": "França",
@@ -15,10 +15,10 @@ def data_processing(times):
     list_years = []
     how_many_years = []
 
-    for list_year in range(1930, 2024, 4):
+    for list_year in range(1930, 2023, 4):
         list_years.append(list_year)
 
-    for how_many in range(year, 2024, 4):
+    for how_many in range(year, 2023, 4):
         how_many_years.append(how_many)
 
     if times["titles"] < 0:
@@ -27,8 +27,7 @@ def data_processing(times):
     if year not in list_years:
         raise InvalidYearCupError("there was no world cup this year")
 
-    if len(how_many_years) != times["titles"]:
+    if len(how_many_years) < times["titles"]:
         raise ImpossibleTitlesError("impossible to have more titles than disputed cups")
 
 
-data_processing(data)
